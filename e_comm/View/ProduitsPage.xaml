@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="e_comm.View.ProduitsPage"
+             Title="Products"
+             BackgroundColor="#F5F5F5">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cart" Command="{Binding ViewCartCommand}" />
+        <ToolbarItem Text="Logout" Clicked="OnLogoutClicked" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout Padding="20" Spacing="15">
+            <Label Text="Explore Our Products" 
+                   FontSize="24" 
+                   FontAttributes="Bold" 
+                   TextColor="#333" 
+                   HorizontalOptions="Center" />
+            <Label Text="Choose a category to start shopping!" 
+                   FontSize="16" 
+                   TextColor="#666" 
+                   HorizontalOptions="Center" />
+
+            <Frame Padding="10" CornerRadius="25" BorderColor="#CCC">
+                <Picker ItemsSource="{Binding Categories}" 
+                        SelectedItem="{Binding SelectedCategory}"
+                        Title="Select Category"
+                        ItemDisplayBinding="{Binding Name}" />
+            </Frame>
+
+            <ListView ItemsSource="{Binding Products}" HasUnevenRows="True" BackgroundColor="White">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Padding="10" Margin="0,5" CornerRadius="15" BorderColor="#DDD" BackgroundColor="#FFF">
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Image Source="{Binding Image}" HeightRequest="80" WidthRequest="80" Aspect="AspectFill" />
+                                    <StackLayout Orientation="Vertical" VerticalOptions="Center">
+                                        <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18" TextColor="#333" />
+                                        <Label Text="{Binding Description}" FontSize="14" TextColor="#666" LineBreakMode="WordWrap" />
+                                        <Label Text="{Binding Price, StringFormat='Price: {0:C}'}" TextColor="#4CAF50" FontSize="16" />
+                                        <Button Text="Add to Cart"
+                                                BackgroundColor="#4CAF50" TextColor="White" CornerRadius="15" HeightRequest="40"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ListView}}, Path=BindingContext.AddToCartCommand}"
+                                                CommandParameter="{Binding}" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
