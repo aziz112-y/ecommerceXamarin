@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="e_comm.View.CartPage"
+             Title="Cart"
+             BackgroundColor="#F5F5F5">
+    <ContentPage.Content>
+        <StackLayout Padding="20" Spacing="15">
+            <Label Text="My Cart"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="#333"
+                   HorizontalOptions="Center" />
+            <Label Text="Review and manage your items below."
+                   FontSize="16"
+                   TextColor="#666"
+                   HorizontalOptions="Center" />
+
+            <ListView x:Name="CartListView" ItemsSource="{Binding CartItems}" HasUnevenRows="True" BackgroundColor="White">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Padding="10" Margin="0,5" CornerRadius="15" BorderColor="#DDD" BackgroundColor="#FFF">
+                                <Grid ColumnSpacing="10" RowSpacing="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Source="{Binding Product.Image}" 
+                                           HeightRequest="80" WidthRequest="80" Aspect="AspectFill" />
+                                    <StackLayout Grid.Column="1" Spacing="5">
+                                        <Label Text="{Binding Product.Name}" 
+                                               FontAttributes="Bold" 
+                                               FontSize="18" 
+                                               TextColor="#333" />
+                                        <Label Text="{Binding Product.Price, StringFormat='Price: {0:C}'}" 
+                                               FontSize="16" 
+                                               TextColor="#4CAF50" />
+                                        <Label Text="{Binding Quantity, StringFormat='Quantity: {0}'}" 
+                                               FontSize="14" 
+                                               TextColor="#666" />
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="2" Orientation="Vertical" Spacing="5" HorizontalOptions="Center">
+                                        <Button Text="+" Command="{Binding BindingContext.IncrementQuantityCommand, Source={x:Reference CartListView}}"
+                                                CommandParameter="{Binding}" 
+                                                BackgroundColor="#4CAF50" 
+                                                TextColor="White" 
+                                                CornerRadius="10" 
+                                                WidthRequest="40" 
+                                                HeightRequest="40" />
+                                        <Button Text="-" Command="{Binding BindingContext.DecrementQuantityCommand, Source={x:Reference CartListView}}"
+                                                CommandParameter="{Binding}" 
+                                                BackgroundColor="#FF9800" 
+                                                TextColor="White" 
+                                                CornerRadius="10" 
+                                                WidthRequest="40" 
+                                                HeightRequest="40" />
+                                        <Button Text="Remove" Command="{Binding BindingContext.RemoveFromCartCommand, Source={x:Reference CartListView}}"
+                                                CommandParameter="{Binding}" 
+                                                BackgroundColor="Red" 
+                                                TextColor="White" 
+                                                CornerRadius="10" 
+                                                WidthRequest="80" 
+                                                HeightRequest="40" />
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Label Text="{Binding TotalPrice, StringFormat='Total: {0:C}'}"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#333"
+                   HorizontalOptions="Center" />
+            <Button Text="Checkout"
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"
+                    CornerRadius="25"
+                    HeightRequest="50"
+                    HorizontalOptions="FillAndExpand"
+                    Command="{Binding CheckoutCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
