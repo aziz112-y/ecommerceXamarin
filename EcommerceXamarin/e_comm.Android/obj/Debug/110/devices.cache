@@ -1,0 +1,1 @@
+<Devices><Device id="CA6SW4OFMJT84P6D"><ResultingAbi>arm64-v8a</ResultingAbi><SdkVersion>33</SdkVersion></Device><Device id="emulator-5554"><ResultingAbi>x86_64</ResultingAbi><ToolsAbi /><SdkVersion>30</SdkVersion><LongOutput>product:sdk_gphone_x86_64;model:sdk_gphone_x86_64;device:generic_x86_64_arm64;transport_id:1</LongOutput></Device></Devices>
